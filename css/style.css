@@ -1,0 +1,116 @@
+:root {
+  --blue: #93B5C6;
+  --off-blue: #C9CCD5;
+  --off-pink: #E4D8DC;
+  --pink: #FFE3E3;
+  --dark: #333333;
+}
+
+/**************** TAG SELECTOR */
+body {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+h1 {
+  font-size: 4rem;
+  padding: 50px;
+  text-align: center;
+  color: var(--blue);
+  text-shadow: 4px 4px var(--pink);
+}
+
+footer {
+  background-color: white;
+  position: fixed;
+  padding: 20px 0px 20px 0px;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
+p {
+  color: var(--dark);
+}
+
+a {
+  text-decoration: none;
+  color: var(--dark);
+}
+
+a:hover {
+  color: var(--blue);
+  transition: 0.3s;
+}
+
+/**************** CLASS SELECTOR */
+/* buttons */
+.btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  border-radius: 5px;
+  color: var(--dark);
+  cursor: pointer;
+  text-align: center;
+  padding: 10px;
+  margin: 0px 25px;
+  width: 150px;
+}
+
+#ai-bot {
+  background-color: var(--blue);
+}
+
+#ai-bot:hover {
+  background-color: var(--off-blue);
+  color: white;
+  transition: 0.3s;
+}
+
+#two-player {
+  background-color: var(--pink);
+}
+
+#two-player:hover {
+  background-color: var(--off-pink);
+  color: white;
+  transition: 0.3s;
+}
+
+/* tic tac toe grid */
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 330px;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.tile {
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  margin: 5px 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.bot-layout {
+  background-color: var(--off-blue);
+}
+
+.player-layout {
+  background-color: var(--off-pink);
+}
+
+/* select 'x' or 'o' */
+.select {
+  font-family: 'Nunito', sans-serif;
+  font-size: 6rem;
+  font-weight: 300;
+  text-align: center;
+  margin-top: -5px;
+}

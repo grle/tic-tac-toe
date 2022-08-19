@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name=viewport content="width=device-width, initial-scale=1, user-scalable=yes">
+  <title>Tic Tac Toe</title>
+
+  <!-- add: css & icon -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- <script src="https://kit.fontawesome.com/02d5cf44c4.js" crossorigin="anonymous"></script> -->
+
+  <!-- font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500;600&family=Nunito&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <h1>TIC TAC TOE</h1>
+
+  <!-- buttons -->
+  <div class="btn-container">
+    <div class="btn" id="ai-bot">AI BOT
+    </div>
+    <div class="btn" id="two-player">TWO PLAYER
+    </div>
+  </div>
+
+  <!-- grid -->
+  <div class="container">
+    <!-- row 1 -->
+    <div class="tile bot-layout player-layout"></div>
+    <div class="tile bot-layout player-layout"></div>
+    <div class="tile bot-layout player-layout"></div>
+
+    <!-- row 2 -->
+    <div class="tile bot-layout player-layout"></div>
+    <div class="tile bot-layout player-layout"></div>
+    <div class="tile bot-layout player-layout"></div>
+
+    <!-- row 3 -->
+    <div class="tile bot-layout player-layout"></div>
+    <div class="tile bot-layout player-layout"></div>
+    <div class="tile bot-layout player-layout"></div>
+  </div>
+
+  <!-- add later -->
+  <div class="score-keep">
+  </div>
+
+  <!-- footer -->
+  <footer>
+    <p>Designed & coded by
+      <a href="https://github.com/grle" target="_blank">
+        <i class="fa-brands fa-github"></i> grle</a> &copy; 2022
+    </p>
+  </footer>
+
+  <!-- two player -->
+  <script src="script.js" charset="utf-8"></script>
+  <!-- ai bot -->
+</body>
+
+</html>
