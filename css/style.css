@@ -109,6 +109,12 @@ a:hover {
   margin: 5px 5px;
   border-radius: 5px;
   cursor: pointer;
+
+  /* select 'x' or 'o' */
+  font-family: 'Nunito', sans-serif;
+  font-size: 5.5rem;
+  font-weight: 300;
+  text-align: center;
 }
 
 .bot-layout {
@@ -127,14 +133,6 @@ a:hover {
 
 #player-vs-bot {
   display: none;
-}
-
-/* select 'x' or 'o' */
-.select {
-  font-family: 'Nunito', sans-serif;
-  font-size: 5.5rem;
-  font-weight: 300;
-  text-align: center;
 }
 
 /***************** MEDIA */
