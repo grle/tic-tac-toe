@@ -157,7 +157,7 @@ const playRound = (myTiles) => {
 
 //////////////////////// AI BOT
 const botRound = () => {
-  ///////////block player1 from achieving three in a row
+  // ///////////block player1 from achieving three in a row
   // //rows
   // let row1 = checkThree(tiles[0], tiles[1], tiles[2]);
   // if (row1 == true) { return; }
@@ -178,11 +178,7 @@ const botRound = () => {
   // let diag2 = checkThree(tiles[2], tiles[4], tiles[6]);
   // if (diag2 == true) { return; }
 
-  ///////////try to get three in a row
-
-  ///////////select one
   easyMode();
-
 }
 
 //EASY MODE
@@ -208,6 +204,13 @@ const easyMode = () => {
   }
 }
 
+//INTERMEDIATE
+//try to get three in a row
+const getThree = (array) => {
+
+}
+
+//DIFFICULT
 //block player1 from achieving three in a row
 const checkThree = (tile1, tile2, tile3) => {
   if (tile1.innerHTML == player1.mark && tile2.innerHTML == player1.mark) {
@@ -223,12 +226,6 @@ const checkThree = (tile1, tile2, tile3) => {
     return false;
   }
 }
-
-//try to get three in a row
-const getThree = (array) => {
-
-}
-
 
 //////////////////////// GAME BOARD
 const checkWin = (array, mark) => {
