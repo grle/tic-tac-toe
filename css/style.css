@@ -9,6 +9,7 @@
 /**************** TAG SELECTOR */
 body {
   font-family: 'Josefin Sans', sans-serif;
+  padding-bottom: 100px;
 }
 
 h1 {
@@ -17,6 +18,13 @@ h1 {
   text-align: center;
   color: var(--blue);
   text-shadow: 4px 4px var(--pink);
+}
+
+h2 {
+  font-size: 3rem;
+  text-align: center;
+  color: var(--pink);
+  text-shadow: 2px 2px var(--blue);
 }
 
 footer {
@@ -63,6 +71,19 @@ a:hover {
   padding: 10px;
   margin: 0px 25px;
   width: 150px;
+}
+
+.btn-restart {
+  background-color: var(--dark);
+  border: 1px solid var(--dark);
+  color: white;
+  margin: 25px auto 0px auto;
+}
+
+.btn-restart:hover {
+  background-color: white;
+  color: var(--dark);
+  transition: 0.3s;
 }
 
 #ai-bot {
@@ -132,6 +153,10 @@ a:hover {
 }
 
 #player-vs-bot {
+  display: none;
+}
+
+#announcement {
   display: none;
 }
 
