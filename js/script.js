@@ -85,7 +85,7 @@ const playRound = (myTiles) => {
     let boolOne = checkWin(tiles, player1.mark);
     if (boolOne == true) {
       //player 1 wins
-      declareWinner("Player 2 wins!");
+      declareWinner("PLAYER 2 WINS!");
       endRound = true;
       return;
     }
@@ -96,7 +96,7 @@ const playRound = (myTiles) => {
     //bot win
     let boolBot = checkWin(tiles, player2.mark);
     if (boolBot == true) {
-      declareWinner("AI Bot wins!")
+      declareWinner("AI BOT WINS!")
       endRound = true;
     }
     round++;
@@ -113,7 +113,7 @@ const playRound = (myTiles) => {
       let boolOne = checkWin(tiles, player1.mark);
       if (boolOne == true) {
         //player 1 wins
-        declareWinner("Player 1 wins!")
+        declareWinner("PLAYER 1 WINS!")
         endRound = true;
       }
     } else if (checkTurn == 1) {
@@ -124,7 +124,7 @@ const playRound = (myTiles) => {
       let boolTwo = checkWin(tiles, player2.mark);
       if (boolTwo == true) {
         //player 2 wins
-        declareWinner("Player 2 wins!")
+        declareWinner("PLAYER 2 WINS!")
         endRound = true;
       }
     }
@@ -136,21 +136,21 @@ const playRound = (myTiles) => {
     //player 1 wins
     boolOne = checkWin(tiles, player1.mark);
     if (boolOne == true) {
-      declareWinner("Player 1 wins!");
+      declareWinner("PLAYER 1 WINS!");
       return;
     }
     //player 2 wins OR bot wins
     boolTwo = checkWin(tiles, player2.mark);
     if (boolTwo == true) {
       if (player2.bot == true) {
-        declareWinner("AI Bot wins!");
+        declareWinner("AI BOT WINS!");
         return;
       }
-      declareWinner("Player 2 wins!");
+      declareWinner("PLAYER 2 WINS!");
       return;
     }
     //declare tie
-    declareWinner("It's a draw!");
+    declareWinner("IT'S A DRAW!");
   }
 }
 
