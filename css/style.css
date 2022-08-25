@@ -130,7 +130,6 @@ a:hover {
   margin: 5px 5px;
   border-radius: 5px;
   cursor: pointer;
-
   /* select 'x' or 'o' */
   font-family: 'Nunito', sans-serif;
   font-size: 5.5rem;
@@ -173,7 +172,8 @@ a:hover {
     font-size: 3.5rem;
   }
 
-  .btn {
+  #ai-bot,
+  #two-player {
     margin: 0px 5px;
   }
 }
