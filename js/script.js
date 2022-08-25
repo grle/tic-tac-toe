@@ -132,7 +132,7 @@ const playRound = (myTiles) => {
   }
 
   //filled graph
-  if (round == 9) {
+  if (round == 9 || round == 10) {// two player: 9,  bot: 10
     //player 1 wins
     boolOne = checkWin(tiles, player1.mark);
     if (boolOne == true) {

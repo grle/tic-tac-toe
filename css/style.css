@@ -21,7 +21,7 @@ h1 {
 }
 
 h2 {
-  font-size: 3rem;
+  font-size: 2.5rem;
   text-align: center;
   color: var(--pink);
   text-shadow: 2px 2px var(--blue);
@@ -157,6 +157,7 @@ a:hover {
 }
 
 #announcement {
+  padding-top: 25px;
   display: none;
 }
 
