@@ -10,12 +10,11 @@ let player2Turn = document.getElementById("second-player-turn").style;
 let player1 = {
   mark: "x",
   //score: 0,
-  path: 0
+  //path: 0
 };
 let player2 = {
   mark: "o",
   //score: 0,
-  path: [0, 1, 2, 3, 4, 5, 6, 7, 8],
   bot: false
 };
 
@@ -82,31 +81,25 @@ const playRound = (myTiles) => {
   //play against bot
   if (player2.bot == true) {
     //player 1 turn
-    player1.path = myTiles.getAttribute("data-index-number");
     myTiles.innerHTML = player1.mark;
     let boolOne = checkWin(tiles, player1.mark);
     if (boolOne == true) {
       //player 1 wins
-      document.getElementById("announcement").style.display = "block";
-      document.getElementById("winner").innerHTML = "Player 1 wins!";
-      //player1.score += 1;
+      declareWinner("Player 2 wins!");
       endRound = true;
       return;
     }
+    round++;
 
     //bot turn
-    botRound();
-    round++;
-    //setTimeout(botRound, 300); //causes a delay
-
+    botRound(); //setTimeout(botRound, 300); //causes boolBot fail by one round
     //bot win
     let boolBot = checkWin(tiles, player2.mark);
     if (boolBot == true) {
-      document.getElementById("announcement").style.display = "block";
-      document.getElementById("winner").innerHTML = "AI Bot wins!";
+      declareWinner("AI Bot wins!")
       endRound = true;
     }
-    //return;
+    round++;
   }
 
   //two player turn
@@ -120,11 +113,7 @@ const playRound = (myTiles) => {
       let boolOne = checkWin(tiles, player1.mark);
       if (boolOne == true) {
         //player 1 wins
-        player1Turn["border-bottom"] = "none";
-        player2Turn["border-bottom"] = "none";
-        document.getElementById("announcement").style.display = "block";
-        document.getElementById("winner").innerHTML = "Player 1 wins!";
-        //player1.score += 1;
+        declareWinner("Player 1 wins!")
         endRound = true;
       }
     } else if (checkTurn == 1) {
@@ -133,98 +122,171 @@ const playRound = (myTiles) => {
       player2Turn["border-bottom"] = "none";
       myTiles.innerHTML = player2.mark;
       let boolTwo = checkWin(tiles, player2.mark);
-      //player 2 wins
       if (boolTwo == true) {
-        player1Turn["border-bottom"] = "none";
-        player2Turn["border-bottom"] = "none";
-        document.getElementById("announcement").style.display = "block";
-        document.getElementById("winner").innerHTML = "Player 2 wins!";
-        //player1.score += 1;
+        //player 2 wins
+        declareWinner("Player 2 wins!")
         endRound = true;
       }
     }
+    round++;
   }
-  round++;
-  //draw
+
+  //no winners
   if (round == 9 || round == 10) { //9 for 2 player, 10 for bot
-    player1Turn["border-bottom"] = "none";
-    player2Turn["border-bottom"] = "none";
-    document.getElementById("announcement").style.display = "block";
-    document.getElementById("winner").innerHTML = "It's a draw!";
+    //player 1 wins
+    boolOne = checkWin(tiles, player1.mark);
+    if (boolOne == true) {
+      declareWinner("Player 1 wins!");
+    }
+    //player 2 wins OR bot wins
+    boolTwo = checkWin(tiles, player2.mark);
+    if (boolTwo == true) {
+      if (player2.bot == true) {
+        declareWinner("AI Bot wins!");
+        return;
+      }
+      declareWinner("Player 2 wins!");
+    }
+    //declare tie
+    declareWinner("It's a draw!");
   }
-  console.log(round);
 }
+
+//winner
+const declareWinner = (winnerString) => {
+  player1Turn["border-bottom"] = "none";
+  player2Turn["border-bottom"] = "none";
+  document.getElementById("announcement").style.display = "block";
+  document.getElementById("winner").innerHTML = winnerString;
+}
+
 
 //////////////////////// AI BOT
 const botRound = () => {
-  // ///////////block player1 from achieving three in a row
-  // //rows
-  // let row1 = checkThree(tiles[0], tiles[1], tiles[2]);
-  // if (row1 == true) { return; }
-  // let row2 = checkThree(tiles[3], tiles[4], tiles[5]);
-  // if (row2 == true) { return; }
-  // let row3 = checkThree(tiles[6], tiles[7], tiles[8]);
-  // if (row3 == true) { return; }
-  // //columns
-  // let col1 = checkThree(tiles[0], tiles[3], tiles[6]);
-  // if (col1 == true) { return; }
-  // let col2 = checkThree(tiles[1], tiles[4], tiles[7]);
-  // if (col2 == true) { return; }
-  // let col3 = checkThree(tiles[2], tiles[5], tiles[8]);
-  // if (col3 == true) { return; }
-  // //diagonals
-  // let diag1 = checkThree(tiles[0], tiles[4], tiles[8]);
-  // if (diag1 == true) { return; }
-  // let diag2 = checkThree(tiles[2], tiles[4], tiles[6]);
-  // if (diag2 == true) { return; }
+  ///////////block player1 from achieving three in a row
+  //rows [0, 1, 2] [3, 4, 5] [6, 7, 8]
+  let row1 = checkThree(0, 1, 2);
+  if (row1 == true) return;
+  let row2 = checkThree(3, 4, 5);
+  if (row2 == true) return;
+  let row3 = checkThree(6, 7, 8);
+  if (row3 == true) return;
+  //columns [0, 3, 6] [1, 4, 7] [2, 5, 8]
+  let col1 = checkThree(0, 3, 6);
+  if (col1 == true) return;
+  let col2 = checkThree(1, 4, 7);
+  if (col2 == true) return;
+  let col3 = checkThree(2, 5, 8);
+  if (col3 == true) return;
+  //diagonals [0, 4, 8] [2, 4, 6]
+  let diag1 = checkThree(0, 4, 8);
+  if (diag1 == true) return;
+  let diag2 = checkThree(2, 4, 6);
+  if (diag2 == true) return;
 
-  easyMode();
+  ///////////get three in a row
+  //rows [0, 1, 2] [3, 4, 5] [6, 7, 8]
+  row1 = getThree(0, 1, 2);
+  if (row1 == true) return;
+  row2 = getThree(3, 4, 5);
+  if (row2 == true) return;
+  row3 = getThree(6, 7, 8);
+  if (row3 == true) return;
+  //columns [0, 3, 6] [1, 4, 7] [2, 5, 8]
+  col1 = getThree(0, 3, 6);
+  if (col1 == true) return;
+  col2 = getThree(1, 4, 7);
+  if (col2 == true) return;
+  col3 = getThree(2, 5, 8);
+  if (col3 == true) return;
+  //diagonals [0, 4, 8] [2, 4, 6]
+  diag1 = getThree(0, 4, 8);
+  if (diag1 == true) return;
+  diag2 = getThree(2, 4, 6);
+  if (diag2 == true) return;
+
+  randomSelect();
 }
 
-//EASY MODE
-const easyMode = () => {
-  for (let i = 0; i < player2.path.length; i++) {
-    if (player2.path[i] == player1.path) {
-      player2.path.splice(i, 1);
+//generate random value
+const randomSelect = () => {
+  let num = Math.floor(Math.random() * tiles.length);
+  for (let i = 0; i < tiles.length; i++) {
+    if (tiles[num].innerHTML.length == 0) {
+      tiles[num].innerHTML = player2.mark;
+      break;
+    }
+    num++;
+    if (num == tiles.length) {
+      num = 0;
     }
   }
-
-  if (player2.path.length == 0) {
-    return;
-  }
-
-  let num = Math.floor(Math.random() * player2.path.length); //generate random number
-  let select = player2.path[num];
-  tiles[select].innerHTML = player2.mark;
-
-  for (let i = 0; i < player2.path.length; i++) {
-    if (player2.path[i] == select) {
-      player2.path.splice(i, 1);
-    }
-  }
 }
 
-//INTERMEDIATE
-//try to get three in a row
-const getThree = (array) => {
+//combine "get three in a row" with "block three in a row"
 
-}
-
-//DIFFICULT
-//block player1 from achieving three in a row
-const checkThree = (tile1, tile2, tile3) => {
-  if (tile1.innerHTML == player1.mark && tile2.innerHTML == player1.mark) {
-    tile3.innerHTML = player2.mark;
-    return true;
-  } else if (tile1.innerHTML == player1.mark && tile3.innerHTML == player1.mark) {
-    tile2.innerHTML = player2.mark;
-    return true;
-  } else if (tile2.innerHTML == player1.mark && tile3.innerHTML == player1.mark) {
-    tile1.innerHTML = player2.mark;
-    return true;
-  } else {
+//get three in a row
+const getThree = (n1, n2, n3) => {
+  let chooseNum = 10;
+  if (tiles[n1].innerHTML == player1.mark || tiles[n2].innerHTML == player1.mark || tiles[n3].innerHTML == player1.mark) {
     return false;
   }
+  if (tiles[n1].innerHTML.length != 0 && tiles[n2].innerHTML.length != 0 && tiles[n3].innerHTML.length != 0) {
+    return false;
+  }
+
+  //get two in a row
+  if (tiles[n1].innerHTML == player2.mark) {
+    if (tiles[n2].innerHTML.length != 0) chooseNum = n2;
+    if (tiles[n3].innerHTML.length != 0) chooseNum = n3;
+  }
+  if (tiles[n2].innerHTML == player2.mark) {
+    if (tiles[n3].innerHTML.length != 0) chooseNum = n3;
+    if (tiles[n1].innerHTML.length != 0) chooseNum = n1;
+  }
+  if (tiles[n3].innerHTML == player2.mark) {
+    if (tiles[n2].innerHTML.length != 0) chooseNum = n2;
+    if (tiles[n1].innerHTML.length != 0) chooseNum = n1;
+  }
+
+  //get three in a row from two
+  if (tiles[n1].innerHTML == player2.mark && tiles[n2].innerHTML == player2.mark) {
+    chooseNum = n3;
+  }
+  else if (tiles[n1].innerHTML == player2.mark && tiles[n3].innerHTML == player2.mark) {
+    chooseNum = n2;
+  }
+  else if (tiles[n2].innerHTML == player2.mark && tiles[n3].innerHTML == player2.mark) {
+    chooseNum = n1;
+  }
+
+  if (chooseNum != 10) {
+    tiles[chooseNum].innerHTML = player2.mark;
+    return true;
+  }
+  return false;
+}
+
+//block player1 from achieving three in a row
+const checkThree = (num1, num2, num3) => {
+  let chooseNum = 10;
+  if (tiles[num1].innerHTML.length != 0 && tiles[num2].innerHTML.length != 0 && tiles[num3].innerHTML.length != 0) {
+    return false;
+  }
+
+  if (tiles[num1].innerHTML == player1.mark && tiles[num2].innerHTML == player1.mark) {
+    chooseNum = num3;
+  } else if (tiles[num1].innerHTML == player1.mark && tiles[num3].innerHTML == player1.mark) {
+    chooseNum = num2;
+  } else if (tiles[num2].innerHTML == player1.mark && tiles[num3].innerHTML == player1.mark) {
+    chooseNum = num1;
+  }
+
+  if (chooseNum != 10) {
+    tiles[chooseNum].innerHTML = player2.mark;
+    return true;
+  }
+  return false;
 }
 
 //////////////////////// GAME BOARD
@@ -261,9 +323,6 @@ const clearBoard = () => {
   }
   round = 0;
   endRound = false;
-  // player1.score = 0;
-  // player2.score = 0;
-  player2.path = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   document.getElementById("announcement").style.display = "none";
   player1Turn["border-bottom"] = "5px solid var(--off-pink)";
   player2Turn["border-bottom"] = "none";
