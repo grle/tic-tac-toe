@@ -163,47 +163,51 @@ const declareWinner = (winnerString) => {
 
 //////////////////////// AI BOT
 const botRound = () => {
-  ///////////block player1 from achieving three in a row
   //rows [0, 1, 2] [3, 4, 5] [6, 7, 8]
-  let row1 = checkThree(0, 1, 2);
-  if (row1 == true) return;
-  let row2 = checkThree(3, 4, 5);
-  if (row2 == true) return;
-  let row3 = checkThree(6, 7, 8);
-  if (row3 == true) return;
-  //columns [0, 3, 6] [1, 4, 7] [2, 5, 8]
-  let col1 = checkThree(0, 3, 6);
-  if (col1 == true) return;
-  let col2 = checkThree(1, 4, 7);
-  if (col2 == true) return;
-  let col3 = checkThree(2, 5, 8);
-  if (col3 == true) return;
-  //diagonals [0, 4, 8] [2, 4, 6]
-  let diag1 = checkThree(0, 4, 8);
-  if (diag1 == true) return;
-  let diag2 = checkThree(2, 4, 6);
-  if (diag2 == true) return;
+  let row1 = lookThree(0, 1, 2);
+  if (row1 != -1) {
+    tiles[row1].innerHTML = player2.mark;
+    return;
+  }
+  let row2 = lookThree(3, 4, 5);
+  if (row2 != -1) {
+    tiles[row2].innerHTML = player2.mark;
+    return;
+  }
+  let row3 = lookThree(6, 7, 8);
+  if (row3 != -1) {
+    tiles[row3].innerHTML = player2.mark;
+    return;
+  }
 
-  ///////////get three in a row
-  //rows [0, 1, 2] [3, 4, 5] [6, 7, 8]
-  row1 = getThree(0, 1, 2);
-  if (row1 == true) return;
-  row2 = getThree(3, 4, 5);
-  if (row2 == true) return;
-  row3 = getThree(6, 7, 8);
-  if (row3 == true) return;
   //columns [0, 3, 6] [1, 4, 7] [2, 5, 8]
-  col1 = getThree(0, 3, 6);
-  if (col1 == true) return;
-  col2 = getThree(1, 4, 7);
-  if (col2 == true) return;
-  col3 = getThree(2, 5, 8);
-  if (col3 == true) return;
+  let col1 = lookThree(0, 3, 6);
+  if (col1 != -1) {
+    tiles[col1].innerHTML = player2.mark;
+    return;
+  }
+  let col2 = lookThree(1, 4, 7);
+  if (col2 != -1) {
+    tiles[col2].innerHTML = player2.mark;
+    return;
+  }
+  let col3 = lookThree(2, 5, 8);
+  if (col3 != -1) {
+    tiles[col3].innerHTML = player2.mark;
+    return;
+  }
+
   //diagonals [0, 4, 8] [2, 4, 6]
-  diag1 = getThree(0, 4, 8);
-  if (diag1 == true) return;
-  diag2 = getThree(2, 4, 6);
-  if (diag2 == true) return;
+  let diag1 = lookThree(0, 4, 8);
+  if (diag1 != -1) {
+    tiles[diag1].innerHTML = player2.mark;
+    return;
+  }
+  let diag2 = lookThree(2, 4, 6);
+  if (diag2 != -1) {
+    tiles[diag2].innerHTML = player2.mark;
+    return;
+  }
 
   randomSelect();
 }
@@ -224,69 +228,50 @@ const randomSelect = () => {
 }
 
 //combine "get three in a row" with "block three in a row"
+const lookThree = (n1, n2, n3) => {
+  let num = -1;
+  if (tiles[n1].innerHTML.length == 1 && tiles[n2].innerHTML.length == 1 && tiles[n3].innerHTML.length == 1) {
+    return num;
+  }
 
-//get three in a row
-const getThree = (n1, n2, n3) => {
-  let chooseNum = 10;
+  //get three in a row
+  if (tiles[n1].innerHTML == player2.mark && tiles[n2].innerHTML == player2.mark) {
+    return n3;
+  } else if (tiles[n1].innerHTML == player2.mark && tiles[n3].innerHTML == player2.mark) {
+    return n2;
+  } else if (tiles[n2].innerHTML == player2.mark && tiles[n3].innerHTML == player2.mark) {
+    return n1;
+  }
+
+  //block from getting three in a row
+  if (tiles[n1].innerHTML == player1.mark && tiles[n2].innerHTML == player1.mark) {
+    return n3;
+  } else if (tiles[n1].innerHTML == player1.mark && tiles[n3].innerHTML == player1.mark) {
+    return n2;
+  } else if (tiles[n2].innerHTML == player1.mark && tiles[n3].innerHTML == player1.mark) {
+    return n1;
+  }
+
+
   if (tiles[n1].innerHTML == player1.mark || tiles[n2].innerHTML == player1.mark || tiles[n3].innerHTML == player1.mark) {
-    return false;
+    return num;
   }
-  if (tiles[n1].innerHTML.length != 0 && tiles[n2].innerHTML.length != 0 && tiles[n3].innerHTML.length != 0) {
-    return false;
-  }
-
   //get two in a row
   if (tiles[n1].innerHTML == player2.mark) {
-    if (tiles[n2].innerHTML.length != 0) chooseNum = n2;
-    if (tiles[n3].innerHTML.length != 0) chooseNum = n3;
+    if (tiles[n2].innerHTML.length == 1) return n2;
+    if (tiles[n3].innerHTML.length == 1) return n3;
   }
   if (tiles[n2].innerHTML == player2.mark) {
-    if (tiles[n3].innerHTML.length != 0) chooseNum = n3;
-    if (tiles[n1].innerHTML.length != 0) chooseNum = n1;
+    if (tiles[n3].innerHTML.length == 1) return n3;
+    if (tiles[n1].innerHTML.length == 1) return n1;
   }
   if (tiles[n3].innerHTML == player2.mark) {
-    if (tiles[n2].innerHTML.length != 0) chooseNum = n2;
-    if (tiles[n1].innerHTML.length != 0) chooseNum = n1;
+    if (tiles[n2].innerHTML.length == 1) return n2;
+    if (tiles[n1].innerHTML.length == 1) return n1;
   }
 
-  //get three in a row from two
-  if (tiles[n1].innerHTML == player2.mark && tiles[n2].innerHTML == player2.mark) {
-    chooseNum = n3;
-  }
-  else if (tiles[n1].innerHTML == player2.mark && tiles[n3].innerHTML == player2.mark) {
-    chooseNum = n2;
-  }
-  else if (tiles[n2].innerHTML == player2.mark && tiles[n3].innerHTML == player2.mark) {
-    chooseNum = n1;
-  }
-
-  if (chooseNum != 10) {
-    tiles[chooseNum].innerHTML = player2.mark;
-    return true;
-  }
-  return false;
-}
-
-//block player1 from achieving three in a row
-const checkThree = (num1, num2, num3) => {
-  let chooseNum = 10;
-  if (tiles[num1].innerHTML.length != 0 && tiles[num2].innerHTML.length != 0 && tiles[num3].innerHTML.length != 0) {
-    return false;
-  }
-
-  if (tiles[num1].innerHTML == player1.mark && tiles[num2].innerHTML == player1.mark) {
-    chooseNum = num3;
-  } else if (tiles[num1].innerHTML == player1.mark && tiles[num3].innerHTML == player1.mark) {
-    chooseNum = num2;
-  } else if (tiles[num2].innerHTML == player1.mark && tiles[num3].innerHTML == player1.mark) {
-    chooseNum = num1;
-  }
-
-  if (chooseNum != 10) {
-    tiles[chooseNum].innerHTML = player2.mark;
-    return true;
-  }
-  return false;
+  //catch all
+  return num;
 }
 
 //////////////////////// GAME BOARD
