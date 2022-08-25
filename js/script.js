@@ -131,12 +131,13 @@ const playRound = (myTiles) => {
     round++;
   }
 
-  //no winners
-  if (round == 9 || round == 10) { //9 for 2 player, 10 for bot
+  //filled graph
+  if (round == 9) {
     //player 1 wins
     boolOne = checkWin(tiles, player1.mark);
     if (boolOne == true) {
       declareWinner("Player 1 wins!");
+      return;
     }
     //player 2 wins OR bot wins
     boolTwo = checkWin(tiles, player2.mark);
@@ -146,6 +147,7 @@ const playRound = (myTiles) => {
         return;
       }
       declareWinner("Player 2 wins!");
+      return;
     }
     //declare tie
     declareWinner("It's a draw!");
